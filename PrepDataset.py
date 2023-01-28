@@ -20,13 +20,15 @@ class Preparation():
                 except Exception as e:
                     print("data error!!")
         random.shuffle(self.training_data)
+        return self.training_data
 
-    def createTraniningData(self,):
+    def createTraniningData(self,training_data):
         self.x=[]
         self.y=[]
-        for self.features, self.label in self.training_data:
-            self.x.append((self.features))
-            self.y.append((self.label))
+        self.Training_Data=training_data
+        for self.features, self.label in self.Training_Data:
+            self.x.append(self.features)
+            self.y.append(self.label)
         self.X=np.array(self.x).reshape(-1,self.img_size,self.img_size,1)
         self.dumpX=open("X.pickle","wb")
         pickle.dump(self.X,self.dumpX)
