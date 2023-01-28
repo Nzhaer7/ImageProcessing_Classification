@@ -5,7 +5,7 @@ import tensorflow as tf
 
 path=""
 category=[""]
-img_size=0
+img_size=50
 
 training_data=prd.Preparation.prepData(path,category,img_size)
 prd.Preparation.createTraniningData(training_data)
@@ -15,10 +15,10 @@ Y=pkl.open("Y.pickle", "rb")
 
 actFunc=tf.nn.relu
 fLayActFunc=tf.nn.softmax
-catNum=0
+catNum=2
 optim="adam"
 lssFunc="sparse_categorical_crossentrophy"
 mtrc=["accuracy"]
-epch=0
+epch=10
 
 cm.TrainingModel.Sequential(X, Y, actFunc, fLayActFunc, catNum, optim, lssFunc, mtrc, epch)
