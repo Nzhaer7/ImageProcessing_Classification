@@ -1,4 +1,8 @@
 import tensorflow as tf
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+import pickle
 
 class TrainingModel():
 
@@ -25,6 +29,24 @@ class TrainingModel():
         print(self.val_loss,self.val_acc)
 
         self.model.save("Trained_Sequential_Model.model")
+
+    def Naive_Bayes(self, x, y,  tstSize):
+        self.cv=CountVectorizer()
+        self.X=self.cv.fit_transform(x)
+        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.X,y, test_size=tstSize)
+
+        self.model=MultinomialNB()
+
+        self.model.fit(self.x_train, self.y_train)
+
+        self.result=self.model.score(self.x_test, self.y_test)
+
+        print(self.result*100)
+
+        pickle.dump(self.model, open("trained_Naive_Bayes_Model.pkl", "wb"))
+        pickle.dump(self.cv, open("cVectorizer.pkl", "wb"))
+
+
 
 
 
