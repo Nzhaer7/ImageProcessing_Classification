@@ -36,13 +36,23 @@ class Preparation():
                 self.classNames.append(clsNames)
                 self.classNums+=1
             if self.classNums==2:
-                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0, self.classNames[1]: 1})
+                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0,
+                                                                                         self.classNames[1]: 1})
             if self.classNums==3:
-                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0, self.classNames[1]: 1, self.classNames[2]: 2})
+                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0,
+                                                                                         self.classNames[1]: 1,
+                                                                                         self.classNames[2]: 2})
             if self.classNums==4:
-                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0, self.classNames[1]: 1, self.classNames[2]: 2, self.classNames[3]: 3})
+                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0,
+                                                                                         self.classNames[1]: 1,
+                                                                                         self.classNames[2]: 2,
+                                                                                         self.classNames[3]: 3})
             if self.classNums==5:
-                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0, self.classNames[1]: 1, self.classNames[2]: 2, self.classNames[3]: 3, self.classNames[4]: 4})
+                self.text_training_data["class"] = self.text_training_data["class"].map({self.classNames[0]: 0,
+                                                                                         self.classNames[1]: 1,
+                                                                                         self.classNames[2]: 2,
+                                                                                         self.classNames[3]: 3,
+                                                                                         self.classNames[4]: 4})
             return self.text_training_data
     def createTraniningData(self,training_data, dataType):
         if dataType=="image":
