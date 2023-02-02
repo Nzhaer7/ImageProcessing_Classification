@@ -9,7 +9,6 @@ import pandas as pd
 class Preparation():
 
     def prepData(self, dataType, dataPrpose, path, category, imgSize, ClssNms):
-
         if dataType=="image":
             self.img_size=imgSize
             self.image_training_data=[]
@@ -104,6 +103,7 @@ class Preparation():
                 self.sequences=np.array(self.sequences)
 
                 return self.sequences, self.vocab_size
+
     def createTraniningData(self,training_data, dataType, dataPrpose, imgSize, vcbSize):
         if dataType=="image":
             self.x=[]
