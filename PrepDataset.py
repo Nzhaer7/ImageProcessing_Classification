@@ -110,9 +110,11 @@ class Preparation():
             self.y=[]
             self.img_size=imgSize
             self.Training_Data=training_data
+
             for features, label in self.Training_Data:
                 self.x.append(features)
                 self.y.append(label)
+
             self.X=np.array(self.x).reshape(-1, self.img_size, self.img_size, 1)
             self.dumpX=open("Image_X.pickle","wb")
             pickle.dump(self.X,self.dumpX)
@@ -120,6 +122,7 @@ class Preparation():
             self.dumpy=open("Image_Y.pickle","wb")
             pickle.dump(self.y,self.dumpy)
             self.dumpy.close()
+
         if dataType=="text":
             if dataPrpose=="classification":
                 self.x=training_data["message"]
@@ -131,6 +134,7 @@ class Preparation():
                 self.dumpy = open("textClftn_Y.pickle", "wb")
                 pickle.dump(self.y, self.dumpy)
                 self.dumpy.close()
+
             elif dataPrpose=="text learning":
                 self.x=[]
                 self.y=[]
