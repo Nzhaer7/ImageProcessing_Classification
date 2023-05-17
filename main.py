@@ -1,21 +1,18 @@
 from keras.optimizers import Adam
-import PrepDataset as prd
+import İmageDataPrep as ImgPrep
+import TextDataPrep as TxtPrep
 import ClassificationModel as cm
 import pickle as pkl
 import tensorflow as tf
 
 class MainExecution():
-    def imageModel(self, path, category, img_size, dataType, dataPrpose, clasNames):
+    def imageModel(self, path, category, img_size):
         self.Path = path
         self.Category = category
         self.Img_size = img_size
-        self.DataType = dataType
-        self.ClasNames = clasNames
-        self.DataPrpose = dataPrpose
-        self.VcbSize=0
 
-        self.training_data=prd.Preparation.prepData(prd.Preparation(), self.DataType, self.DataPrpose, self.Path, self.Category, self.Img_size, self.ClasNames)
-        prd.Preparation.createTraniningData(prd.Preparation(), self.training_data, self.DataType, self.DataPrpose, self.Img_size,self.VcbSize)
+        self.Prep_data=ImgPrep.Preparation.prepData(self.Path,self.Category, self.Img_size)
+        self.Training_data= ImgPrep.Preparation.createTraniningData(self.Prep_data, self.Img_size)
 
         self.X = pkl.load(open('Image_X.pickle', 'rb'))
         self.Y = pkl.load(open('Image_Y.pickle', 'rb'))
@@ -30,17 +27,13 @@ class MainExecution():
 
         cm.TrainingModel.Sequential(cm.TrainingModel(), self.X, self.Y, self.actFunc, self.fLayActFunc, self.catNum, self.optim, self.lssFunc, self.mtrc, self.epch)
 
-    def textClassificationModel(self, path, dataType, dataPrpose):
+    def textClassificationModel(self, path, clssNames, dataPrpose,):
         self.Path = path
-        self.Category = [""]
-        self.Img_size = 0
-        self.DataType = dataType
-        self.ClasNames = [""]
+        self.ClasNames = clssNames
         self.DataPrpose = dataPrpose
-        self.VcbSize = 0
 
-        self.training_data = prd.Preparation.prepData(prd.Preparation(), self.DataType, self.DataPrpose, self.Path, self.Category, self.Img_size, self.ClasNames)
-        prd.Preparation.createTraniningData(prd.Preparation(), self.training_data, self.DataType, self.DataPrpose, self.Img_size,self.VcbSize)
+        self.Prep_data = TxtPrep.Preparation.prepData(self.Path, self.ClasNames, self.DataPrpose)
+        self.Training_data=TxtPrep.Preparation.createTraniningData(self.Prep_data, self.DataPrpose, self.DataPrpose)
 
         self.X = pkl.load(open('textClftn_X.pickle', 'rb'))
         self.Y = pkl.load(open('textClftn_Y.pickle', 'rb'))
@@ -49,16 +42,14 @@ class MainExecution():
 
         cm.TrainingModel.Naive_Bayes(cm.TrainingModel(), self.X, self.Y, self.testSize)
 
-    def textLearningModel(self, path, dataType, dataPrpose):
+    def textLearningModel(self, path, dataPrpose, clssNames, VcbSize):
         self.Path = path
-        self.Category = [""]
-        self.Img_size = 0
-        self.DataType = dataType
-        self.ClasNames = [""]
+        self.ClasNames = clssNames
         self.DataPrpose = dataPrpose
+        self.VcbSize= VcbSize
 
-        self.training_data, self.VcbSize = prd.Preparation.prepData(prd.Preparation(), self.DataType, self.DataPrpose, self.Path, self.Category, self.Img_size, self.ClasNames)
-        prd.Preparation.createTraniningData(prd.Preparation(), self.training_data, self.DataType, self.DataPrpose, self.Img_size,self.VcbSize)
+        self.Prep_data, self.VcbSize = TxtPrep.Preparation.prepData(self.Path, self.ClasNames, self.DataPrpose, self.VcbSize)
+        self.Training_data=TxtPrep.Preparation.createTraniningData(self.Prep_data, self.DataPrpose, self.VcbSize)
 
         self.X=pkl.load(open('textLrnng_X.pickle', 'rb'))
         self.Y=pkl.load(open('textLrnng_Y.pickle', 'rb'))
