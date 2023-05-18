@@ -1,6 +1,6 @@
 import numpy as np
 import os
-import cv2
+from cv2 import cv2
 import random
 import pickle
 
