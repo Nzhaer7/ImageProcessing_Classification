@@ -27,7 +27,7 @@ class MainExecution():
 
         cm.TrainingModel.Sequential(cm.TrainingModel(), self.X, self.Y, self.actFunc, self.fLayActFunc, self.catNum, self.optim, self.lssFunc, self.mtrc, self.epch)
 
-    def textClassificationModel(self, path, clssNames, dataPrpose,):
+    def textClassificationModel(self, path, clssNames, dataPrpose):
         self.Path = path
         self.ClasNames = clssNames
         self.DataPrpose = dataPrpose
